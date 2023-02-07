@@ -32,11 +32,11 @@ class App {
     }
     private initialiseControllers(controllers: Controller[]): void {
         controllers.forEach((controller: Controller) => {
-            this.express.use('/api', controller.router());
+            this.express.use('/api', controller.router);
         });
     }
     private initialiseErrorHandling(): void {
-        this.express.use(ErrorMiddleware());
+        this.express.use(ErrorMiddleware);
     }
     private initialiseDatabaseConnection(): void {
         const { MONGO_URI } = process.env;
