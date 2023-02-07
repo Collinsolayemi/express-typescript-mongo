@@ -6,6 +6,8 @@ import morgan from 'morgan';
 import Controller from '@utilis/interfaces/controller.interface';
 import ErrorMiddleware from '@middleware/error.middleware';
 import helmet from 'helmet';
+import dotenv from 'dotenv';
+dotenv.config();
 
 class App {
     public express: Application;
@@ -28,9 +30,22 @@ class App {
         this.express.use(express.urlencoded({ extended: false }));
         this.express.use(compression());
     }
-    private initialiseControllers(controllers: controller[]): void {
-        controllers.forEach((controller: controller) => {
+    private initialiseControllers(controllers: Controller[]): void {
+        controllers.forEach((controller: Controller) => {
             this.express.use('/api', controller.router());
         });
     }
+    private initialiseErrorHandling(): void {
+        this.express.use(ErrorMiddleware());
+    }
+    private initialiseDatabaseConnection(): void {
+        const { MONGO_URI } = process.env;
+        mongoose.connect('MONGO_URI');
+    }
+    public listen(): void {
+        this.express.listen(this.port);
+        console.log(`Apps running on port ${this.port}`);
+    }
 }
+
+export default App;
