@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import compression from 'compression';
 import cors from 'cors';
 import morgan from 'morgan';
-import Controller from '@utilis/interfaces/controller.interface';
+import Controller from '@utilis/interfaces/controllers.interface';
 import ErrorMiddleware from '@middleware/error.middleware';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
