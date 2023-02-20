@@ -38,8 +38,10 @@ class App {
         this.express.use(ErrorMiddleware);
     }
     private initialiseDatabaseConnection(): void {
-        const { MONGO_URI } = process.env;
-        mongoose.connect(`${MONGO_URI}`);
+        const { MONGO_USER, MONGO_PASSWORD, MONGO_PATH } = process.env;
+        mongoose.connect(
+            `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_PATH}`
+        );
     }
     public listen(): void {
         this.express.listen(this.port);
